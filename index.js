@@ -1,0 +1,3 @@
+function generateGrade(marks) {
+    
+}
