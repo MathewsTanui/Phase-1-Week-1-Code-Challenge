@@ -19,6 +19,49 @@
         <div id="result"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("salaryForm");
+            const calculateButton = document.getElementById("calculateButton");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                calculateNetSalary();
+            });
+        });
+
+        function calculateNetSalary() {
+            // Get values from inputs
+            const basicSalary = parseFloat(document.getElementById("basicSalaryInput").value);
+            const benefits = parseFloat(document.getElementById("benefitsInput").value);
+
+            // Calculate net salary
+            const netSalaryResult = calculateNetSalary(basicSalary, benefits);
+
+            // Display result
+            document.getElementById("result").innerText = `Net Salary: ${netSalaryResult.netSalary}`;
+        }
+
+        function calculateNetSalary(basicSalary, benefits) {
+            const taxRate = 0.3;
+            const nhifRate = 0.05;
+            const nssfRate = 0.1;
+
+            const grossSalary = basicSalary + benefits;
+            const tax = grossSalary * taxRate;
+            const nhifDeduction = grossSalary * nhifRate;
+            const nssfDeduction = grossSalary * nssfRate;
+            const netSalary = grossSalary - tax - nhifDeduction - nssfDeduction;
+
+            return {
+                grossSalary,
+                tax,
+                nhifDeduction,
+                nssfDeduction,
+                netSalary
+            };
+        }
+    </script>
 </body>
 </html>
