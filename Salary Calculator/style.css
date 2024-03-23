@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: bisque;
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid bisque;
     border-radius: 5px;
 }
 
@@ -19,13 +20,13 @@ input {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid bisque;
     border-radius: 5px;
 }
 
 button {
     background-color: #4CAF50;
-    color: white;
+    color: bisque;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
