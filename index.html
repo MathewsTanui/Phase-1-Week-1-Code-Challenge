@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Net Salary Calculator</title>
+    <title>M&B DRIVING Speed Detector</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,59 +16,54 @@
         </ul>
     </nav>
     <div class="container">
-        <h1>M&B SCHOOL Net Salary Calculator</h1>
-        <form id="salaryForm">
-            <label for="basicSalaryInput">Basic Salary:</label>
-            <input type="number" id="basicSalaryInput" name="basicSalaryInput" required>
-            <label for="benefitsInput">Benefits:</label>
-            <input type="number" id="benefitsInput" name="benefitsInput" required>
-            <button type="submit">Calculate Net Salary</button>
+        <h1>M&B DRIVING Speed Detector</h1>
+        <form id="speedForm">
+            <label for="speedInput">Enter Speed:</label>
+            <input type="number" id="speedInput" name="speedInput" min="0" required>
+            <button type="submit">Check Speed</button>
         </form>
         <div id="result"></div>
     </div>
 
     <script src="index.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("salaryForm");
+        // Function to calculate demerit points
+        function calculateDemeritPoints(speed) {
+            const speedLimit = 70;
+            const kmPerDemerit = 5;
+            const pointsPerDemerit = 1;
 
-            form.addEventListener("submit", function (event) {
-                event.preventDefault();
-                calculateNetSalary();
-            });
-        });
-
-        function calculateNetSalary() {
-            // Get values from inputs
-            const basicSalary = parseFloat(document.getElementById("basicSalaryInput").value);
-            const benefits = parseFloat(document.getElementById("benefitsInput").value);
-
-            // Calculate net salary
-            const salaryResult = calculateSalary(basicSalary, benefits);
-
-            // Display result
-            document.getElementById("result").innerText = `Net Salary: ${salaryResult.netSalary.toFixed(2)}`;
+            if (speed <= speedLimit) {
+                return "Ok";
+            } else {
+                const demeritPoints = Math.floor((speed - speedLimit) / kmPerDemerit) * pointsPerDemerit;
+                if (demeritPoints > 12) {
+                    return "License suspended";
+                } else {
+                    return `Points: ${demeritPoints}`;
+                }
+            }
         }
 
-        function calculateSalary(basicSalary, benefits) {
-            const taxRate = 0.3;
-            const nhifRate = 0.05;
-            const nssfRate = 0.1;
+        // Function to handle form submission
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
 
-            const grossSalary = basicSalary + benefits;
-            const tax = grossSalary * taxRate;
-            const nhifDeduction = grossSalary * nhifRate;
-            const nssfDeduction = grossSalary * nssfRate;
-            const netSalary = grossSalary - tax - nhifDeduction - nssfDeduction;
+            // Get the value of the speed input field
+            const speedInput = document.getElementById("speedInput");
+            const speed = parseInt(speedInput.value);
 
-            return {
-                grossSalary,
-                tax,
-                nhifDeduction,
-                nssfDeduction,
-                netSalary
-            };
+            // Calculate demerit points
+            const result = calculateDemeritPoints(speed);
+
+            // Display the result
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = result;
         }
+
+        // Add event listener to the form submission
+        const speedForm = document.getElementById("speedForm");
+        speedForm.addEventListener("submit", handleSubmit);
     </script>
 </body>
 </html>
